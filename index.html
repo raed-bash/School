@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styleSchools.css" />
+    <script src="jquery-3.6.0.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/c4254e24a8.js"
+      crossorigin="anonymous"
+    ></script>
+    <script> 
+      $(document).ready(function(){  
+        $(window).on('load',function(){
+         setTimeout(' $(".load").fadeOut(); ',2000)
+        }); 
+      });
+    </script>
+    <style>
+      iframe {
+        position: relative;
+        left: -50%;
+        transform: translateX(50%);
+        width: 50%;
+        min-height: 100vh;
+      }
+    </style>
+    <title>إدارة المدرسة</title>
+  </head>
+  <body>
+    <div class="load">إدارة المدرسة</div>
+    <header>
+      <h1>إدارة المدرسة</h1>
+      <div class="side-menu">
+        <ul>
+          <li>
+            <a id="openInformationTeacher" href="#InformationTeacher"
+              >معلومات المدرسين</a
+            >
+          </li>
+          <li>
+            <a id="openInformationArticle" href="#InformationArticle"
+              >معلومات المواد</a
+            >
+          </li>
+          <li>
+            <a id="openInformationGrade" href="#InformationGrade"
+              >معلومات الصفوف</a
+            >
+          </li>
+          <li>
+            <a id="openInformationStudents" href="#InformationStudents"
+              >معلومات الطلاب</a
+            >
+          </li>
+          <li>
+            <a id="openInformationMarks" href="#InformationMarks"
+              >معلومات العلامات</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div dir="rtl" class="container" id="PageTeacher">
+      <h2 id="InformationTeacher">معلومات المدرسين</h2>
+      <div class="input Teacher" id="input">
+        <input type="hidden" id="InputId" />
+        <input type="text" name="name" id="teachername" placeholder="الاسم" />
+        <div style="display: flex; gap: 4px">
+          <select name="year" id="year"></select>
+          <select name="month" id="month"></select>
+          <select name="day" id="day"></select>
+        </div>
+        <input
+          type="text"
+          name="address"
+          id="teacheraddress"
+          placeholder="العنوان"
+        />
+
+        <button type="button" class="TeacherCreate" id="teachercreate">
+          إضافة
+        </button>
+
+        <button onclick="getSearchmMoodT(this.id)" id="BtnSearchName">
+          بحث حسب الاسم
+        </button>
+
+        <input
+          type="text"
+          onkeyup="SearchT(this.value)"
+          id="inptSearchT"
+          placeholder="بحث حسب الاسم"
+        />
+
+        <button onclick="getSearchmMoodT(this.id)" id="BtnSearchNumbr">
+          بحث حسب الرقم
+        </button>
+
+        <span id="contantBtnDeleteT"></span>
+      </div>
+
+      <table>
+        <tr>
+          <th>الرقم</th>
+          <th>اسم المدرس</th>
+          <th>تاريخ الميلاد</th>
+          <th>العنوان</th>
+          <th>تعديل وحذف</th>
+        </tr>
+        <tbody id="outputT"></tbody>
+      </table>
+    </div>
+    <div class="container" id="PageArticle">
+      <h2 id="InformationArticle">معلومات المواد</h2>
+      <div class="input Article" id="input2">
+        <input type="text" id="articleNameA" placeholder="اسم المادة" />
+
+        <input
+          list="teacherNameA2"
+          id="teacherNameA"
+          placeholder="المدرس"
+          autocomplete="off"
+        />
+        <datalist name="" id="teacherNameA2"> </datalist>
+
+        <button id="articlecreate">إضافة</button>
+
+        <button onclick="getSearchMoodA(this.id)" id="BtnSearchNameA">
+          بحث حسب اسم المادة
+        </button>
+
+        <input
+          type="text"
+          onkeyup="SearchA(this.value,this.id)"
+          id="inptSearchA"
+          placeholder="بحث حسب اسم المادة"
+        />
+
+        <button onclick="getSearchMoodA(this.id)" id="BtnSearchNumbrA">
+          بحث حسب الرقم
+        </button>
+
+        <span id="contantBtnDeleteA"></span>
+      </div>
+
+      <table>
+        <tr>
+          <th>الرقم</th>
+          <th>اسم المادة</th>
+          <th>المدرس</th>
+          <th>تعديل وحذف</th>
+        </tr>
+
+        <tbody id="articleOutput"></tbody>
+      </table>
+    </div>
+
+    <div class="container" id="PageGrade">
+      <h2 id="InformationGrade">معلومات الصفوف</h2>
+      <div class="input Grade" id="input3">
+        <input type="text" id="GradeNameG" placeholder="اسم الصف" />
+
+        <button id="GradeCreate">إضافة</button>
+
+        <button onclick="getSearchMoodG(this.id)" id="BtnSearchNameG">
+          بحث حسب اسم الصف
+        </button>
+
+        <input
+          type="text"
+          onkeyup="SearchG(this.value,this.id)"
+          id="inptSearchG"
+          placeholder="بحث حسب اسم الصف"
+        />
+
+        <button onclick="getSearchMoodG(this.id)" id="BtnSearchNumbrG">
+          بحث حسب الرقم
+        </button>
+
+        <span id="contantBtnDeleteG"></span>
+      </div>
+
+      <table>
+        <tr>
+          <th>الرقم</th>
+          <th>اسم الصف</th>
+          <th>تعديل وحذف</th>
+        </tr>
+
+        <tbody id="GradeOutput"></tbody>
+      </table>
+    </div>
+
+    <div class="container" id="PageStudents">
+      <h2 id="InformationStudents">معلومات الطلاب</h2>
+      <form id="formS"  method="post"  enctype="multipart/form-data">
+      <div class="input Students" id="input4">
+        <input type="hidden" id="InputIdS" name="id_S_N">
+        <input type="hidden" id="status" name="statusImg">
+        <input type="text" id="StudentsNameS" name="StudentsNameS" placeholder="اسم الطالب" />
+        <div style="display: flex; gap: 4px; grid-column: 2/4">
+          <select name="yearS" id="yearS"></select>
+          <select name="monthS" id="monthS"></select>
+          <select name="dayS" id="dayS"></select>
+        </div>
+        <input type="text" name="StudentsAddressS" id="StudentsAddressS" placeholder="العنوان" />
+        <input type="file" accept="image/*" name="StudentsImgS" id="StudentsImgS" />
+        <select name="StudentsGradeS2" id="StudentsGradeS2"></select>
+        <div id="ContantImg1" class="Contant-img">
+          <i onclick="CloseContantImg()" class="fas fa-times"></i>
+          <img src="" id="ImgS" />
+          <p id="pictureS">معاينة صورة الطالب</p>
+        </div>
+        <button id="StudentsCreate" type="submit">إضافة</button>
+      </form>
+        <button onclick="getSearchMoodS(this.id)" id="BtnSearchNameS">
+          بحث حسب اسم الصف
+        </button>
+        <input
+          type="text"
+          onkeyup=""
+          id="inptSearchS1"
+          placeholder="من تاريخ"
+        />
+        <input
+          type="text"
+          onkeyup="SearchS(this.value)"
+          id="inptSearchS2"
+          placeholder="بحث حسب اسم الصف"
+        />
+        <button onclick="getSearchMoodS(this.id)" id="BtnSearchDateS">
+          بحث بين تاريخي مواليد معينة
+        </button>
+
+        <span id="contantBtnDeleteS"> </span>
+      </div>
+
+      <table>
+        <tr>
+          <th>الرقم</th>
+          <th>اسم الطالب</th>
+          <th>تاريخ الميلاد</th>
+          <th>العنوان</th>
+          <th>صورة الطالب</th>
+          <th>الصف</th>
+          <th>تعديل وحذف</th>
+        </tr>
+
+        <tbody id="StudentsOutput"></tbody>
+      </table>
+      <div id="back2" class="back">
+        <div id="pop">
+          <i  class="fas fa-times"></i
+          ><img src="" id="img2" />
+        </div>
+      </div>
+    </div>
+
+    <div class="container" id="PageMarks">
+      <h2 id="InformationMarks">معلومات العلامات</h2>
+      <div class="input Marks" id="input4">
+        <input
+          type="text"
+          onkeypress="return isNumber(event)"
+          id="MarksM"
+          placeholder="العلامة"
+        />
+        <input
+          list="StudentsNameM2"
+          id="StudentsNameM"
+          placeholder="اسم الطالب"
+        />
+        <datalist name="" id="StudentsNameM2"> </datalist>
+        <select name="123123" id="MarksArticleM"></select>
+        <button id="MarksCreate">إضافة</button>
+
+        <button onclick="getSearchMoodM(this.id)" id="BtnSearchNameM">
+          بحث حسب اسم الطالب
+        </button>
+        <input
+          type="text"
+          onkeyup="SearchM(this.value)"
+          id="inptSearchM"
+          placeholder="بحث حسب اسم الطالب"
+        />
+        <button onclick="getSearchMoodM(this.id)" id="BtnSearchArticleM">
+          بحث حسب اسم المادة
+        </button>
+        <div id="contantCheckBox">
+          <label for="Success">الناجحين</label>
+          <input
+            type="radio"
+            class="visibleByResult"
+            id="Success"
+            name="m" 
+          />
+          <label for="fail">الراسبين</label>
+          <input
+            type="radio"
+            class="visibleByResult"
+            id="fail"
+            name="m" 
+          />
+          <label for="All">الكل</label>
+          <input
+            type="radio"
+            class="visibleByResult"
+            id="All"
+            name="m" 
+            checked
+          />
+        </div>
+        <input type="text" id="inptBestTeacher" readonly disabled />
+        <span id="contantBtnDeleteM"> </span>
+      </div>
+
+      <table>
+        <tr>
+          <th>الرقم</th>
+          <th>العلامة</th>
+          <th>اسم الطالب</th>
+          <th>المادة</th>
+          <th>النتيجة</th>
+          <th>تعديل وحذف</th>
+        </tr>
+
+        <tbody id="MarksOutput"></tbody>
+      </table>
+    </div>
+
+    <p id="para" class="para"></p>
+
+    <div id="back" class="back">
+      <p id="paraDelete" class="para"></p>
+    </div>
+
+    <script src="./FilesPageTeacher/Scripts/FunctionsPageTeacher.js"></script>
+    <script src="./FilesPageArticle/Scripts/FunctionsPageArticle.js"></script>
+    <script src="./FilesPageGrade/Scripts/FunctionsPageGrade.js"></script>
+    <script src="./FilesPageStudents/Scripts/FunctionsPageStudents.js"></script>
+    <script src="./FilesPageMarks/Scripts/FunctionsPageMarks.js"></script> 
+    
+  </body>
+</html>
+
+<!--
+
+   
+ -->
